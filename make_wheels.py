@@ -1,5 +1,6 @@
 # Adapted from https://github.com/ziglang/zig-pypi by Rick Lupton
 
+import string
 import argparse
 import os
 import stat
@@ -143,6 +144,14 @@ RDFox = rdfox.__main__:main
     )
 
 
+def rdfox_version_to_python_version(rdfox_version):
+    last_char = rdfox_version[-1].lower()
+    if last_char in string.ascii_lowercase:
+        patch_version = 1 + string.ascii_lowercase.index(last_char)
+        return rdfox_version[:-1] + f".{patch_version}"
+    return rdfox_version
+
+
 def fetch_and_write_rdfox_wheels(
     rdfox_version, outdir='dist/', wheel_version_suffix='', platforms=tuple()
 ):
@@ -166,7 +175,7 @@ def fetch_and_write_rdfox_wheels(
             #     raise AssertionError
             print(f'{hashlib.sha256(rdfox_archive).hexdigest()} {rdfox_url}')
 
-        wheel_version = rdfox_version
+        wheel_version = rdfox_version_to_python_version(rdfox_version)
         wheel_path = write_rdfox_wheel(outdir,
             version=wheel_version + wheel_version_suffix,
             platform=python_platform,
