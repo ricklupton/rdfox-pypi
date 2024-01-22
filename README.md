@@ -75,6 +75,11 @@ Changes in version numbers
 
 RDFox has started using an alphabetical suffix to denote a patch release (e.g. `6.3a`). As a Python package version, this would be interpreted as an alpha release (`6.3a0`), which is sorted before the previous release `6.3`. Therefore, alphabetic suffices are converted to numerical patch versions (e.g. `6.3a` becomes `6.3.1`).
 
+Github Actions
+--------------
+
+The `publish.yml` workflow can be manually triggered and will build and publish packages for a new RDFox version directly on Github.
+
 License
 -------
 
